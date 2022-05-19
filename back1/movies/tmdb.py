@@ -6,7 +6,8 @@ BASE_URL = "https://api.themoviedb.org/3"
 
 def create_movie_data():
     total_data = []
-    for i in range(1, 2):
+    # 300개
+    for i in range(1, 16):
 
         # popular로 movie_id를 받고
         request_url = f'{BASE_URL}/movie/popular?api_key={API_KEY}&language=ko-KR&page={i}'
