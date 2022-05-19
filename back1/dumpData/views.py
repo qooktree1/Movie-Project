@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from movies.models import Movie, Genre
 from movies.serializers import GenreSerializer
-import requests
+import requests, json
 
 API_KEY = '11006c90d072cfdcbfb249d25eb8f5ee'
 BASE_URL = "https://api.themoviedb.org/3"
@@ -11,6 +11,7 @@ BASE_URL = "https://api.themoviedb.org/3"
 @api_view(['GET'])
 def genre_data(request):
     res = requests.get(f'{BASE_URL}/genre/movie/list?api_key={API_KEY}&language=ko')
+
     data = res.json()['genres']
     serializer = GenreSerializer(data=data, many=True)
 
@@ -18,7 +19,8 @@ def genre_data(request):
 
     if serializer.is_valid():
         serializer.save()
-
+    with open("genre_data.json", 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent="\t", ensure_ascii=False)
     return Response(serializer.data)
 
 
@@ -70,5 +72,6 @@ def movie_data(request):
             for movie_genre in data.get('genres') :
                 genre = Genre.objects.get(pk=movie_genre.get("id"))
                 movie.genres.add(genre)
-
+    with open("movie_data.json", 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent="\t", ensure_ascii=False)
     return Response()
