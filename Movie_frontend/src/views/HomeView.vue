@@ -1,16 +1,18 @@
 <template>
   <div>
     <h1></h1>
-
-    <h2>작성한 글</h2>
-
-    <h2>좋아요 한 글</h2>
   </div>
 </template>
 
 <script>
+  // import { mapGetters, mapActions } from 'vuex'
+
   export default {
-    name: 'ProfileView',
+    name: 'ArticleDetail',
+    data() {
+      return {
+      }
+    },
     computed: {},
     methods: {},
     created() {},

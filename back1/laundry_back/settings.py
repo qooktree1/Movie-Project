@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_7*seuy1j=m(1rtrrs(@-no_3heb$h6l4*_@mo@vgs%5hs(&5('
+SECRET_KEY = 'django-insecure-y1kdj$x1xj8#oa&aaw5(avg_ebs^p6rxyyux2yw%)#^9vlq%%o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -19,42 +19,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # local apps
-    'accounts',
     'movies',
 
-    # 3rd party apps
-    'django_seed',
-    'psycopg2',
-    'django_extensions',
+    # 3rd party
     'rest_framework',
-    'rest_framework.authtoken',  # token 기반 auth
-    # DRF auth
-    'dj_rest_auth',  # signup 제외 auth 관련 담당
-    'dj_rest_auth.registration',  # signup 담당
+    'django_seed',
 
-    # signup 담당을 위해 필요 
-    'allauth', 
-    'allauth.account',
-    'allauth.socialaccount',
 
-    # CORS 세팅
-    'corsheaders',
-
-    # native apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',  # dj-rest-auth signup 필요
 ]
 
-SITE_ID = 1
-
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +44,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_back.urls'
+ROOT_URLCONF = 'laundry_back.urls'
 
 TEMPLATES = [
     {
@@ -82,7 +62,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_back.wsgi.application'
+WSGI_APPLICATION = 'laundry_back.wsgi.application'
 
 
 # Database
@@ -138,30 +118,3 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'accounts.User'
-
-# 특정 origin 에게만 교차 출처 허용
-# CORS_ALLOWED_ORIGINS = [
-#     # Vue LocalHost
-#     'http://localhost:8080',
-#     'http://127.0.0.1:8001',
-# ]
-
-# 모두에게 교차출처 허용 (*)
-CORS_ALLOW_ALL_ORIGINS = True
-
-
-# DRF 인증 관련 설정
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        # 모두에게 허용
-        # 'rest_framework.permissions.AllowAny', 
-
-        # 인증된 사용자만 모든일이 가능 / 비인증 사용자는 모두 401 Unauthorized
-        'rest_framework.permissions.IsAuthenticated'
-    ]
-}
