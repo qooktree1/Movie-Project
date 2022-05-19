@@ -9,7 +9,7 @@ from .serializers import MovieSerializer
 
 @api_view(['GET'])
 def index(request):    
-    movies = get_list_or_404(Movie)
+    movies = Movie.objects.order_by('-vote_average').prefetch_related('genres')
     serializer = MovieSerializer(data=movies, many=True)
-    if serializer.is_valid(raise_exception=True):
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    if serializer.is_valid():
+        return Response(serializer.data)

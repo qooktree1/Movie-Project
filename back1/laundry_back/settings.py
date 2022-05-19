@@ -20,7 +20,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'movies',
-
+    'dumpData',
+    
     # 3rd party
     'rest_framework',
     'django_seed',
